@@ -1,0 +1,31 @@
+@CHARSET "ISO-8859-1";
+
+
+body {
+    font-family: 'Roboto Slab', sans-serif;
+}
+
+.overlay {
+    background-color: #ffffff;
+}
+
+.node text {
+    font-size: 12px;
+    font-family: Roboto Slab;
+}
+
+.node {
+    cursor: pointer;
+}
+
+.node circle {
+    fill: #ffffff;
+    stroke: #808080;
+    stroke-width: 1.5px;
+}
+
+.link {
+    fill: none;
+    stroke: #ccc;
+    stroke-width: 1.5px;
+}
