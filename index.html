@@ -10,7 +10,8 @@
 <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,300,700' rel='stylesheet' type='text/css'>
 <link href="css.css" rel="stylesheet" />
 
-<script src="https://d3js.org/d3.v4.min.js"></script>
+
+<script src="https://d3js.org/d3.v3.min.js"></script>
 
 </head>
 <body>
@@ -18,7 +19,6 @@
 <p class="text-center">Coming Soon</p>
 
 <div id='chart'></div>
-
 
 
 <script>
@@ -36,6 +36,9 @@ height = viewerHeight - margin.top - margin.bottom,
 root;
 
 
+var force = d3.layout.force()
+    .size([width, height])
+    .on("tick", tick);
 
 var force = d3.layout.force()
     .linkDistance(280)
