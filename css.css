@@ -1,13 +1,7 @@
 @CHARSET "ISO-8859-1";
 
 
-body {
-    font-family: 'Roboto Slab', sans-serif;
-}
 
-.overlay {
-    background-color: #ffffff;
-}
 
 .nodeold text {
     font-size: 12px;
