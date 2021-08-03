@@ -157,10 +157,21 @@ function flatten(root) {
 <body>
 <script src="//d3js.org/d3.v3.min.js"></script>
 <script>
+    
+//size of the diagram
+var viewerWidth = window.innerWidth;
+var viewerHeight = window.innerHeight;
 
-var width = 960,
-    height = 500,
-    root;
+var margin = {top: 20, right: 20, bottom: 20, left: 20},
+//width = parseInt(d3.select('#chart').style('width'), 10),
+width = viewerWidth - margin.left - margin.right,
+//height = parseInt(d3.select('#chart').style('height'), 10),
+height = viewerHeight - margin.top - margin.bottom,
+root;
+
+//var width = 960,
+ //   height = 500,
+//    root;
 
 var force = d3.layout.force()
     .size([width, height])
