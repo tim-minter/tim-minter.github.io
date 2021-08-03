@@ -1,53 +1,53 @@
 {
   "name": "things",
-  "size":"30000",
+  "size":"130000",
   "children": [
     {
       "name": "social",
-      "size":"40000",
+      "size":"140000",
       "children": [
         {
-          "size": "50000",
+          "size": "150000",
           "name": "twitter"
         },
         {
-          "size": "50000",
+          "size": "150000",
           "name": "instagram"
         },
         {
-          "size": "50000",
+          "size": "150000",
           "name": "linkedin"
         },
         {
-          "size": "50000",
+          "size": "150000",
           "name": "github"
         }
       ]
     },
     {
       "name": "developer.ibm",
-      "size":"40000",
+      "size":"140000",
       "children": [
         {
-          "size": "50000",
+          "size": "150000",
           "name": "axis"
         },
         {
-          "size": "50000",
+          "size": "150000",
           "name": "controls"
         }
       ]
     },
     {
       "name": "blog",
-      "size":"40000",
+      "size":"140000",
       "children": [
         {
-          "size": "50000",
+          "size": "150000",
           "name": "axis"
         },
         {
-          "size": "50000",
+          "size": "150000",
           "name": "legend"
         }
       ]
