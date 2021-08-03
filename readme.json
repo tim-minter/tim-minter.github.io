@@ -30,20 +30,12 @@
       "name": "developer.ibm",
       "children": [
         {
+          "size": "3980",
           "name": "axis"
         },
         {
+          "size": "3980",
           "name": "controls"
-        },
-        {
-          "name": "legend"
-        },
-        {
-          "name": "operator"
-        },
-        {
-          "name": "Visualization",
-          "size": 16540
         }
       ]
     },
@@ -51,20 +43,12 @@
       "name": "blog",
       "children": [
         {
+          "size": "3980",
           "name": "axis"
         },
         {
-          "name": "events"
-        },
-        {
+          "size": "3980",
           "name": "legend"
-        },
-        {
-          "name": "operator"
-        },
-        {
-          "name": "Visualization",
-          "size": 16540
         }
       ]
     }
