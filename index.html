@@ -55,12 +55,8 @@ function update() {
   force
       .nodes(nodes)
       .links(links)
-      .charge(-200)
+      .charge(-400)
       .start();
-
-    
-    
-    
     
   // Update the links…
   link = link.data(links, function(d) { return d.target.id; });
