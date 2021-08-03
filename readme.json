@@ -1,19 +1,21 @@
 {
   "name": "things",
+  "size":"30000",
   "children": [
     {
       "name": "social",
+      "size":"20000",
       "children": [
         {
-          "size": "3980",
+          "size": "10000",
           "name": "twitter"
         },
         {
-          "size": "3980",
+          "size": "10000",
           "name": "instagram"
         },
         {
-          "size": "3980",
+          "size": "10000",
           "name": "linkedin"
         },
         {
