@@ -4,22 +4,22 @@
   "children": [
     {
       "name": "social",
-      "size":"20000",
+      "size":"40000",
       "children": [
         {
-          "size": "10000",
+          "size": "50000",
           "name": "twitter"
         },
         {
-          "size": "10000",
+          "size": "50000",
           "name": "instagram"
         },
         {
-          "size": "10000",
+          "size": "50000",
           "name": "linkedin"
         },
         {
-          "size": "3980",
+          "size": "50000",
           "name": "github"
         }
       ]
@@ -28,11 +28,11 @@
       "name": "developer.ibm",
       "children": [
         {
-          "size": "3980",
+          "size": "50000",
           "name": "axis"
         },
         {
-          "size": "3980",
+          "size": "50000",
           "name": "controls"
         }
       ]
@@ -41,11 +41,11 @@
       "name": "blog",
       "children": [
         {
-          "size": "3980",
+          "size": "50000",
           "name": "axis"
         },
         {
-          "size": "3980",
+          "size": "50000",
           "name": "legend"
         }
       ]
