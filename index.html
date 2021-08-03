@@ -5,7 +5,7 @@
 
 .node {
   cursor: pointer;
-  stroke: #3182bd;
+  stroke: #000000;
   stroke-width: 1.5px;
 }
 
@@ -17,7 +17,7 @@
 
 </style>
 <body>
-<script src="//d3js.org/d3.v3.min.js"></script>
+<script src="//d3js.org/d3.v4.min.js"></script>
 <script>
 
 //size of the diagram
@@ -55,7 +55,7 @@ function update() {
   force
       .nodes(nodes)
       .links(links)
-  .distance(200)
+  .distance(40)
       .start();
 
     
