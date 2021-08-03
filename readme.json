@@ -5,7 +5,6 @@
       "name": "social",
       "children": [
         {
-          "url": "",
           "size": "3980",
           "name": "twitter"
         },
@@ -13,14 +12,11 @@
           "size": "3980",
           "name": "instagram"
         },
-        "url",
         {
-          "url": "",
           "size": "3980",
           "name": "linkedin"
         },
         {
-          "url": "",
           "size": "3980",
           "name": "github"
         }
