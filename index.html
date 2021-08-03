@@ -202,6 +202,8 @@ function update() {
 
   // Exit any old links.
   link.exit().remove();
+    
+  link.distance(200);
 
   // Enter any new links.
   link.enter().insert("line", ".node")
