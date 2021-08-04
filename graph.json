@@ -1,35 +1,29 @@
 {
- "name": "flare",
+ "name": "home",
  "children": [
-  {
-   "name": "analytics",
+  
    "children": [
     {
-     "name": "cluster",
+     "name": "social",
      "children": [
-      {"name": "AgglomerativeCluster", "size": 3938},
-      {"name": "CommunityStructure", "size": 3812},
-      {"name": "HierarchicalCluster", "size": 6714},
-      {"name": "MergeEdge", "size": 743}
+      {"name": "twitter", "size": 10000},
+      {"name": "linkedIn", "size": 10000}
+      
      ]
     },
     {
-     "name": "graph",
+     "name": "personal",
      "children": [
-      {"name": "BetweennessCentrality", "size": 3534},
-      {"name": "LinkDistance", "size": 5731},
-      {"name": "MaxFlowMinCut", "size": 7840},
-      {"name": "ShortestPaths", "size": 5914},
-      {"name": "SpanningTree", "size": 3416}
+      {"name": "website", "size": 30000},
+      {"name": "instagram", "size": 30000}
      ]
     },
     {
-     "name": "optimization",
+     "name": "publications",
      "children": [
-      {"name": "AspectRatioBanker", "size": 7074}
+      {"name": "developer.ibm", "size": 40000},
+      {"name": "github", "size": 40000}
      ]
     }
-   ]
-  }
  ]
 }
