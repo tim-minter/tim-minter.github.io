@@ -1,55 +1,39 @@
 {
     "nodes": [
         {
-            "name": "Myriel",
+            "name": "Myriel 1",
             "group": 1
         },
         {
-            "name": "Napoleon",
+            "name": "Napoleon 1",
             "group": 1
         },
         {
-            "name": "Mlle.Baptistine",
+            "name": "Mlle.Baptistine 1",
             "group": 1
         },
         {
-            "name": "Labarre",
+            "name": "Labarre 2",
             "group": 2
         },
         {
-            "name": "Valjean",
+            "name": "Valjean 2",
             "group": 2
         },
         {
-            "name": "Marguerite",
+            "name": "Marguerite 2",
+            "group": 2
+        },
+        {
+            "name": "Mme.deR 3",
             "group": 3
         },
         {
-            "name": "Mme.deR",
-            "group": 2
-        },
-        {
-            "name": "Isabeau",
-            "group": 2
-        },
-        {
-            "name": "Gervais",
-            "group": 2
-        },
-        {
-            "name": "Tholomyes",
+            "name": "Isabeau 3",
             "group": 3
         },
         {
-            "name": "Listolier",
-            "group": 3
-        },
-        {
-            "name": "Fameuil",
-            "group": 3
-        },
-        {
-            "name": "Blacheville",
+            "name": "Gervais 3",
             "group": 3
         }
         
@@ -69,56 +53,6 @@
             "source": 3,
             "target": 0,
             "value": 10
-        },
-        {
-            "source": 3,
-            "target": 2,
-            "value": 6
-        },
-        {
-            "source": 3,
-            "target": 0,
-            "value": 1
-        },
-        {
-            "source": 3,
-            "target": 0,
-            "value": 1
-        },
-        {
-            "source": 2,
-            "target": 0,
-            "value": 1
-        },
-        {
-            "source": 2,
-            "target": 0,
-            "value": 1
-        },
-        {
-            "source": 2,
-            "target": 0,
-            "value": 2
-        },
-        {
-            "source": 3,
-            "target": 0,
-            "value": 1
-        },
-        {
-            "source": 3,
-            "target": 0,
-            "value": 1
-        },
-        {
-            "source": 2,
-            "target": 0,
-            "value": 3
-        },
-        {
-            "source": 1,
-            "target": 0,
-            "value": 3
         }
     ]
 }
