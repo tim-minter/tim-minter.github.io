@@ -8,19 +8,23 @@
       "children": [
         {
           "size": "150000",
-          "name": "twitter"
+          "name": "twitter",
+          "url":"https://twitter.com/timminter"
         },
         {
           "size": "150000",
-          "name": "instagram"
+          "name": "instagram",
+           "url": "https://instagram.com/timminter"
         },
         {
           "size": "150000",
-          "name": "linkedin"
+          "name": "linkedin",
+          "url": "https://linkedin.com/timminter""
         },
         {
           "size": "150000",
-          "name": "github"
+          "name": "github",
+          "url" :"https://github.com/tim-minter"
         }
       ]
     },
