@@ -19,9 +19,15 @@ line.link {
   stroke: #9ecae1;
   stroke-width: 1.5px;
 }
+  
+  #chart {
+  text-align: center;
+  margin-top: 40px;
+}
 
 </style>
 <body>
+<div id="chart"></div>
 <script src="//d3js.org/d3.v3.min.js"></script>
 <script>
 
@@ -37,7 +43,7 @@ var force = d3.layout.force()
     .on("tick", tick);
 
 var svg = d3
-    .select("body")
+    .select("#chart")
     .append("svg")
     .attr("viewBox", "0 0 960 500");
     //.attr("width", width)
