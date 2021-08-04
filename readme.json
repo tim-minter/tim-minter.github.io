@@ -9,22 +9,22 @@
         {
           "size": "150000",
           "name": "twitter",
-          "url":"https://twitter.com/timminter"
+          "url": "https://twitter.com/timminter"
         },
         {
           "size": "150000",
           "name": "instagram",
-           "url": "https://instagram.com/timminter"
+          "url": "https://instagram.com/timminter"
         },
         {
           "size": "150000",
           "name": "linkedin",
-          "url": "https://linkedin.com/timminter""
+          "url": "https://linkedin.com/timminter"
         },
         {
           "size": "150000",
           "name": "github",
-          "url" :"https://github.com/tim-minter"
+          "url": "https://github.com/tim-minter"
         }
       ]
     },
