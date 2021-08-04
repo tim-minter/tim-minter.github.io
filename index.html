@@ -39,7 +39,7 @@ var svg = d3.select("body").append("svg")
 
 var link = svg.selectAll(".link");
 var node = svg.selectAll(".node")
-        .enter().append("g")
+        .append("g")
         .attr("class", "node")
         .call(force.drag);
   
