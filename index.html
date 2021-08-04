@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
+<title="Tim Minter">
 <style>
 
 .node circle {
@@ -70,7 +71,7 @@ var svg = d3
 var link = svg.selectAll(".link"),
     //node = svg.selectAll(".node");
     node = svg.selectAll(".node")
-    .on("click", function(d){
+    .on("click", function(d){ // this bit isn't really doing anything currently
       console.log(d);
       alert("You clicked on node " + d.name);
     })
