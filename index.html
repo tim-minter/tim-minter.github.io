@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <style>
+  
+/* Make the chart container fill the page using CSS. */
+      #chart {
+        position: fixed;
+        left: 0px;
+        right: 0px;
+        top: 0px;
+        bottom: 0px;
+      }
 
 .node circle {
   cursor: pointer;
@@ -25,9 +34,7 @@ line.link {
 <script src="//d3js.org/d3.v3.min.js"></script>
 <script>
 
-var width = 960,
-    height = 500,
-    root;
+
 
 var force = d3.layout.force()
     .linkDistance(120)
@@ -36,6 +43,13 @@ var force = d3.layout.force()
     .size([width, height])
     .on("tick", tick);
 
+var chartDiv = document.getElementById("chart");
+var svg = d3.select(chartDiv).append("svg");  
+
+var width = chartDiv.clientWidth,
+    height = chartDiv.clientWidth,
+    root;
+  
 var svg = d3.select("body").append("svg")
     .attr("width", width)
     .attr("height", height);
