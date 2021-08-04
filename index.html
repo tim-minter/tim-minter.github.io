@@ -62,7 +62,6 @@ function update() {
       links = d3.layout.tree().links(nodes);
 
       var node = svg.selectAll(".node")
-      .data(json.nodes)
     .enter().append("g")
       .attr("class", "node")
       .call(force.drag);
