@@ -76,7 +76,16 @@ d3.json("graph.json", function(error, json) {
   root = json;
   update();
 });
+ 
+// === this part stops the click event happening if you also drag (otherwise a drag would always initiate a click event)
+var drag = d3.behavior.drag();
+selection.call(drag);
 
+drag.on("dragend", function() {
+  d3.event.sourceEvent.stopPropagation(); // silence other listeners
+});
+// ===
+  
 function update() {
   var nodes = flatten(root),
       links = d3.layout.tree().links(nodes);
