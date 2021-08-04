@@ -20,9 +20,8 @@ line.link {
   stroke-width: 1.5px;
 }
   
-  #chart {
+#chart {
   text-align: center;
-  margin-top: 40px;
 }
 
 </style>
@@ -31,15 +30,13 @@ line.link {
 <script src="//d3js.org/d3.v3.min.js"></script>
 <script>
 
-var width = 960,
-    height = 500,
-    root;
+var root;
 
 var force = d3.layout.force()
     .linkDistance(100)
     .charge(-450)
     .gravity(.05)
-    .size([width, height])
+    //.size([width, height])
     .on("tick", tick);
 
 var svg = d3
