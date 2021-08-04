@@ -6,8 +6,8 @@
      "name": "social",
      "size": 100000,
      "children": [
-      {"name": "twitter", "size": 80000},
-      {"name": "linkedIn", "size": 80000}
+      {"name": "twitter", "size": 100000},
+      {"name": "linkedIn", "size": 100000}
       
      ]
     },
@@ -15,16 +15,16 @@
      "name": "personal",
      "size": 100000,
      "children": [
-      {"name": "website", "size": 80000},
-      {"name": "instagram", "size": 80000}
+      {"name": "website", "size": 100000},
+      {"name": "instagram", "size": 100000}
      ]
     },
     {
      "name": "publications",
      "size": 100000,
      "children": [
-      {"name": "developer.ibm", "size": 80000},
-      {"name": "github", "size": 80000}
+      {"name": "developer.ibm", "size": 100000},
+      {"name": "github", "size": 100000}
      ]
     }
  ]
