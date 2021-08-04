@@ -44,14 +44,12 @@ var svg = d3.select("body").append("svg")
   var link = svg.append("g")
         .attr("class", "link")
         .selectAll("line")
-        .data(graph.links)
-        .enter().append("line");
+        
 
     var node = svg.append("g")
         .attr("class", "nodes")
         .selectAll("circle")
-        .data(graph.nodes)
-        .enter().append("circle")
+        
 
 d3.json("readme.json", function(error, json) {
   if (error) throw error;
