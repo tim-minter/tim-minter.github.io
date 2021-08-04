@@ -68,7 +68,16 @@ var svg = d3
     .attr("height", height);
 
 var link = svg.selectAll(".link"),
-    node = svg.selectAll(".node");
+    //node = svg.selectAll(".node");
+  
+var node = svg.selectAll(".node")
+    .on("click", function(d){
+      console.log(d);
+      alert("You clicked on node " + d.name);
+    })
+    .call(force.drag);
+  
+  
 
 d3.json("graph.json", function(error, json) {
   if (error) throw error;
