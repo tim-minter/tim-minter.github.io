@@ -1,26 +1,30 @@
 {
  "name": "home",
+ "size": 100000,
  "children": [
     {
      "name": "social",
+     "size": 100000,
      "children": [
-      {"name": "twitter", "size": 10000},
-      {"name": "linkedIn", "size": 10000}
+      {"name": "twitter", "size": 80000},
+      {"name": "linkedIn", "size": 80000}
       
      ]
     },
     {
      "name": "personal",
+     "size": 100000,
      "children": [
-      {"name": "website", "size": 30000},
-      {"name": "instagram", "size": 30000}
+      {"name": "website", "size": 80000},
+      {"name": "instagram", "size": 80000}
      ]
     },
     {
      "name": "publications",
+     "size": 100000,
      "children": [
-      {"name": "developer.ibm", "size": 40000},
-      {"name": "github", "size": 40000}
+      {"name": "developer.ibm", "size": 80000},
+      {"name": "github", "size": 80000}
      ]
     }
  ]
