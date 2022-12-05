@@ -6,7 +6,7 @@
      "name": "social",
      "size": 100000,
      "children": [
-      {"name": "twitter", "size": 100000},
+      {"name": "twitter", "size": 100000, "url": "https://twitter.com/timminter"},
       {"name": "linkedIn", "size": 100000}
       
      ]
