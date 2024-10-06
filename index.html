@@ -17,6 +17,7 @@
 </head>
 <body>
 <script>
+    Tim Minter 2024
     // Set up the SVG canvas
     let width = window.innerWidth;
     let height = window.innerHeight;
@@ -45,31 +46,27 @@
         });
     }, { once: true });
 
-    // Function to calculate cat size as 20% of the width
-    function calculateCatSize() {
-        return width * 0.2;
-    }
+    // Set initial cat size
+    const initialCatSize = 200;
 
     // Create the initial cat images side by side
-    let catSize = calculateCatSize();
-
     let cat1 = svg.append("image")
         .attr("xlink:href", catImageURL1)
-        .attr("width", catSize)
-        .attr("height", catSize)
-        .attr("x", width / 2 - catSize - 20)
-        .attr("y", height - catSize)
+        .attr("width", initialCatSize)
+        .attr("height", initialCatSize)
+        .attr("x", width / 2 - initialCatSize - 20)
+        .attr("y", height - initialCatSize)
         .attr("class", "cat")
-        .call(dragBehavior(cat1StartX = width / 2 - catSize - 20, cat1StartY = height - catSize));
+        .call(dragBehavior(width / 2 - initialCatSize - 20, height - initialCatSize));
 
     let cat2 = svg.append("image")
         .attr("xlink:href", catImageURL2)
-        .attr("width", catSize)
-        .attr("height", catSize)
+        .attr("width", initialCatSize)
+        .attr("height", initialCatSize)
         .attr("x", width / 2 + 20)
-        .attr("y", height - catSize)
+        .attr("y", height - initialCatSize)
         .attr("class", "cat")
-        .call(dragBehavior(cat2StartX = width / 2 + 20, cat2StartY = height - catSize));
+        .call(dragBehavior(width / 2 + 20, height - initialCatSize));
 
     // Define drag behavior
     function dragBehavior(startX, startY) {
@@ -83,7 +80,7 @@
                 playCuteSound();  // Play sound on start of drag
             })
             .on("drag", function (event) {
-                d3.select(this).attr("x", event.x - catSize / 2).attr("y", event.y - catSize / 2);
+                d3.select(this).attr("x", event.x - initialCatSize / 2).attr("y", event.y - initialCatSize / 2);
             })
             .on("end", function (event) {
                 velocityX = (event.x - initialX) * 2;  // Increase speed
@@ -110,7 +107,7 @@
             const easeT = d3.easeCubicOut(t);
             const newX = x0 + vx * easeT;
             const newY = y0 + vy * easeT;
-            const newSize = catSize * (1 - t);  // Reduce size as it moves away
+            const newSize = initialCatSize * (1 - t);  // Reduce size as it moves away
 
             cat.attr("x", newX)
                .attr("y", newY)
@@ -124,8 +121,8 @@
         setTimeout(() => {
             cat.attr("x", startX)
                .attr("y", startY)
-               .attr("width", catSize)
-               .attr("height", catSize);
+               .attr("width", initialCatSize)
+               .attr("height", initialCatSize);
         }, 500);  // Add a delay before resetting
     }
 
@@ -143,19 +140,14 @@
     window.addEventListener("resize", () => {
         width = window.innerWidth;
         height = window.innerHeight;
-        catSize = calculateCatSize();
 
         svg.attr("width", width).attr("height", height);
 
-        cat1.attr("width", catSize)
-            .attr("height", catSize)
-            .attr("x", width / 2 - catSize - 20)
-            .attr("y", height - catSize);
+        cat1.attr("x", width / 2 - initialCatSize - 20)
+            .attr("y", height - initialCatSize);
 
-        cat2.attr("width", catSize)
-            .attr("height", catSize)
-            .attr("x", width / 2 + 20)
-            .attr("y", height - catSize);
+        cat2.attr("x", width / 2 + 20)
+            .attr("y", height - initialCatSize);
     });
 </script>
 </body>
