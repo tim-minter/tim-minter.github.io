@@ -3,142 +3,160 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cat Flinging Game</title>
+    <title>Cat Fling Game</title>
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <style>
         body {
             margin: 0;
             overflow: hidden;
         }
+        .cat {
+            cursor: grab;
+        }
     </style>
 </head>
 <body>
-    <button id="audio-button" style="position: fixed; top: 10px; left: 10px; z-index: 1000;">Enable Sound</button>
-    <script>
-        // Tim Minter 2024
+<script>
+    // Tim Minter 2024
+    // Set up the SVG canvas
+    let width = window.innerWidth;
+    let height = window.innerHeight;
 
-        let width = window.innerWidth;
-        let height = window.innerHeight;
+    const svg = d3.select("body").append("svg")
+        .attr("viewBox", `0 0 ${width} ${height}`)
+        .attr("preserveAspectRatio", "xMidYMid meet")
+        .style("width", "100%")
+        .style("height", "100%");
 
-        // Create an SVG element to cover the entire screen
-        const svg = d3.select("body").append("svg")
-          .attr("width", width)
-          .attr("height", height)
-          .call(d3.zoom().on("zoom", (event) => {
-            svg.attr("transform", event.transform);
-          }))
-          .append("g");
+    // Load the cat image
+    const catImageURL1 = "cat-image1.png"; 
+    const catImageURL2 = "cat-image2.png";  
 
-        let catsData = [
-          { id: 1, imageUrl: 'cat-image1.png', x: 100, y: height - 150 },
-          { id: 2, imageUrl: 'cat-image2.png', x: 300, y: height - 150 }
-        ];
+    // Create an audio element for reuse
+    const audio = new Audio("cat.mp3"); 
 
-        let catSize = Math.min(100, width / 10);
-
-        // Define drag behavior
-        const dragBehavior = d3.drag()
-          .on("start", dragStarted)
-          .on("drag", dragged)
-          .on("end", dragEnded);
-
-        // Adding cats to the screen
-        const cats = svg.selectAll(".cat")
-          .data(catsData)
-          .enter()
-          .append("image")
-          .attr("class", "cat")
-          .attr("x", d => d.x)
-          .attr("y", d => d.y)
-          .attr("width", catSize)
-          .attr("height", catSize)
-          .attr("xlink:href", d => d.imageUrl)
-          .call(dragBehavior);
-
-        // Audio context setup for better mobile browser support
-        let audioContext;
-        let audioBuffer;
-
-        async function setupAudio() {
-          audioContext = new (window.AudioContext || window.webkitAudioContext)();
-          const response = await fetch('cat.mp3');
-          const arrayBuffer = await response.arrayBuffer();
-          audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
-        }
-
-        function playSound() {
-          if (audioContext && audioBuffer) {
-            const source = audioContext.createBufferSource();
-            source.buffer = audioBuffer;
-            source.connect(audioContext.destination);
-            source.start(0);
-          }
-        }
-
-        // Enable sound button for mobile browsers
-        document.getElementById('audio-button').addEventListener('click', () => {
-          if (!audioContext) {
-            setupAudio().then(() => {
-              audioContext.resume();
-              alert('Sound enabled! You can now hear the cat sound effects.');
-            });
-          }
+    // Add a unified event listener to authorize sound playback
+    function authorizeSoundPlayback() {
+        audio.play().catch(error => {
+            console.log("Initial sound authorization failed or was prevented by the browser.");
         });
+    }
 
-        // Drag handlers
-        function dragStarted(event, d) {
-          d3.select(this).raise().attr("stroke", "black");
-          d.startX = d.x;
-          d.startY = d.y;
-        }
+    document.body.addEventListener('touchstart', authorizeSoundPlayback, { once: true });
+    document.body.addEventListener('mousedown', authorizeSoundPlayback, { once: true });
+    document.body.addEventListener('click', authorizeSoundPlayback, { once: true });
 
-        function dragged(event, d) {
-          d3.select(this)
-            .attr("x", d.x = event.x)
-            .attr("y", d.y = event.y);
-        }
+    // Set initial cat size
+    const initialCatSize = 120;
 
-        function dragEnded(event, d) {
-          playSound();
+    // Function to create a cat image
+    function createCat(imageURL, startX, startY) {
+        return svg.append("image")
+            .attr("xlink:href", imageURL)
+            .attr("width", initialCatSize)
+            .attr("height", initialCatSize)
+            .attr("x", startX)
+            .attr("y", startY)
+            .attr("class", "cat")
+            .call(dragBehavior(startX, startY));
+    }
 
-          // Calculate fling direction based on drag movement
-          const deltaX = event.x - d.startX;
-          const deltaY = event.y - d.startY;
+    // Create the initial cat images side by side
+    let cat1 = createCat(catImageURL1, width / 2 - initialCatSize - 20, height - initialCatSize);
+    let cat2 = createCat(catImageURL2, width / 2 + 20, height - initialCatSize);
 
-          // Animate flinging motion
-          d3.select(this)
-            .transition()
-            .duration(1000)
+    // Define drag behavior
+    function dragBehavior(startX, startY) {
+        let initialX, initialY, velocityX, velocityY;
+
+        return d3.drag()
+            .on("start", function (event) {
+                initialX = event.x;
+                initialY = event.y;
+                d3.select(this).style("cursor", "grabbing");
+                playCuteSound();  // Play sound on start of drag
+            })
+            .on("drag", function (event) {
+                d3.select(this).attr("x", event.x - initialCatSize / 2).attr("y", event.y - initialCatSize / 2);
+            })
+            .on("end", function (event) {
+                velocityX = (event.x - initialX) * 2;  // Increase speed
+                velocityY = (event.y - initialY) * 2;  // Increase speed
+                flingCat(d3.select(this), velocityX, velocityY, startX, startY);
+                d3.select(this).style("cursor", "grab");
+            });
+    }
+
+    // Fling the cat image using a d3.transition for smoother animation
+    function flingCat(cat, vx, vy, startX, startY) {
+        const duration = 1500;
+        const x0 = parseFloat(cat.attr("x"));
+        const y0 = parseFloat(cat.attr("y"));
+
+        cat.transition()
+            .duration(duration)
             .ease(d3.easeCubicOut)
-            .attr("x", d.x + deltaX * 2)
-            .attr("y", d.y + deltaY * 2)
-            .attr("width", catSize / 2)
-            .attr("height", catSize / 2)
-            .on("end", () => {
-              // Reset cat to original position after animation
-              d3.select(this)
-                .transition()
-                .duration(500)
-                .ease(d3.easeCubicInOut)
-                .attr("x", d.x = catsData.find(cat => cat.id === d.id).x)
-                .attr("y", d.y = height - 150)
-                .attr("width", catSize)
-                .attr("height", catSize);
+            .attrTween("x", function() {
+                return function(t) {
+                    return x0 + vx * t;
+                };
+            })
+            .attrTween("y", function() {
+                return function(t) {
+                    return y0 + vy * t;
+                };
+            })
+            .attrTween("width", function() {
+                return function(t) {
+                    return initialCatSize * (1 - t);
+                };
+            })
+            .attrTween("height", function() {
+                return function(t) {
+                    return initialCatSize * (1 - t);
+                };
+            })
+            .on("end", function() {
+                resetCat(cat, startX, startY);
             });
-        }
+    }
 
-        // Handle screen resizing
-        window.addEventListener("resize", () => {
-          width = window.innerWidth;
-          height = window.innerHeight;
-          d3.select("svg").attr("width", width).attr("height", height);
-          
-          // Update cat size and positions
-          catSize = Math.min(100, width / 10);
-          cats.attr("width", catSize).attr("height", catSize)
-            .attr("x", (d, i) => d.x = i * (width / 4) + 100)
-            .attr("y", d => d.y = height - 150);
+    // Reset the cat to the starting position
+    function resetCat(cat, startX, startY) {
+        cat.transition()
+           .duration(500)
+           .attr("x", startX)
+           .attr("y", startY)
+           .attr("width", initialCatSize)
+           .attr("height", initialCatSize);
+    }
+
+    // Play a cute sound when the cat is touched
+    function playCuteSound() {
+        audio.currentTime = 0;  // Reset audio to the start
+        audio.play().then(() => {
+            console.log("Sound played successfully.");
+        }).catch(error => {
+            console.log("Sound playback failed or was prevented by the browser.");
         });
-    </script>
+    }
+
+    // Handle window resize
+    window.addEventListener("resize", () => {
+        width = window.innerWidth;
+        height = window.innerHeight;
+
+        svg.attr("viewBox", `0 0 ${width} ${height}`);
+
+        // Update the starting position of the cats
+        cat1.call(dragBehavior(width / 2 - initialCatSize - 20, height - initialCatSize))
+            .attr("x", width / 2 - initialCatSize - 20)
+            .attr("y", height - initialCatSize);
+
+        cat2.call(dragBehavior(width / 2 + 20, height - initialCatSize))
+            .attr("x", width / 2 + 20)
+            .attr("y", height - initialCatSize);
+    });
+</script>
 </body>
 </html>
