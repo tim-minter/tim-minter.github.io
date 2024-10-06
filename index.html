@@ -13,6 +13,7 @@
     </style>
 </head>
 <body>
+    <button id="audio-button" style="position: fixed; top: 10px; left: 10px; z-index: 1000;">Enable Sound</button>
     <script>
         // Tim Minter 2024
 
@@ -54,11 +55,35 @@
           .attr("xlink:href", d => d.imageUrl)
           .call(dragBehavior);
 
-        // Play sound function
-        function playSound() {
-          const audio = new Audio('cat.mp3');
-          audio.play();
+        // Audio context setup for better mobile browser support
+        let audioContext;
+        let audioBuffer;
+
+        async function setupAudio() {
+          audioContext = new (window.AudioContext || window.webkitAudioContext)();
+          const response = await fetch('cat.mp3');
+          const arrayBuffer = await response.arrayBuffer();
+          audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
         }
+
+        function playSound() {
+          if (audioContext && audioBuffer) {
+            const source = audioContext.createBufferSource();
+            source.buffer = audioBuffer;
+            source.connect(audioContext.destination);
+            source.start(0);
+          }
+        }
+
+        // Enable sound button for mobile browsers
+        document.getElementById('audio-button').addEventListener('click', () => {
+          if (!audioContext) {
+            setupAudio().then(() => {
+              audioContext.resume();
+              alert('Sound enabled! You can now hear the cat sound effects.');
+            });
+          }
+        });
 
         // Drag handlers
         function dragStarted(event, d) {
