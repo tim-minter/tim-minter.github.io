@@ -36,7 +36,8 @@
         .attr("x", width / 2 - 50)
         .attr("y", height - 100)
         .attr("class", "cat")
-        .call(dragBehavior());
+        .call(dragBehavior())
+        .on("touchstart", playCuteSound);  // Play sound on touch
 
     // Define drag behavior
     function dragBehavior() {
@@ -54,7 +55,6 @@
             .on("end", (event) => {
                 velocityX = (event.x - startX) * 2;  // Increase speed
                 velocityY = (event.y - startY) * 2;  // Increase speed
-                playCuteSound();
                 flingCat(velocityX, velocityY);
                 cat.style("cursor", "grab");
             });
@@ -97,11 +97,12 @@
                 .attr("x", width / 2 - 50)
                 .attr("y", height - 100)
                 .attr("class", "cat")
-                .call(dragBehavior());
+                .call(dragBehavior())
+                .on("touchstart", playCuteSound);  // Play sound on touch
         }, 500);  // Add a delay before resetting
     }
 
-    // Play a cute sound when the cat is flung
+    // Play a cute sound when the cat is touched
     function playCuteSound() {
         const audio = new Audio("cat.mp3");  // Replace with the path to your sound file
         audio.play().then(() => {
