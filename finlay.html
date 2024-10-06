@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cat Fling Game</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+        .cat {
+            cursor: grab;
+        }
+    </style>
+</head>
+<body>
+<script>
+    // Set up the SVG canvas
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+
+    const svg = d3.select("body").append("svg")
+        .attr("width", width)
+        .attr("height", height);
+
+    // Load the cat image
+    const catImageURL = "cat.PNG";  // Replace with the path to your PNG file
+
+    // Create the initial cat image element
+    let cat = svg.append("image")
+        .attr("xlink:href", catImageURL)
+        .attr("width", 100)
+        .attr("height", 100)
+        .attr("x", width / 2 - 50)
+        .attr("y", height - 100)
+        .attr("class", "cat")
+        .call(dragBehavior());
+
+    // Define drag behavior
+    function dragBehavior() {
+        let startX, startY, velocityX, velocityY;
+
+        return d3.drag()
+            .on("start", (event) => {
+                startX = event.x;
+                startY = event.y;
+                cat.style("cursor", "grabbing");
+            })
+            .on("drag", (event) => {
+                cat.attr("x", event.x - 50).attr("y", event.y - 50);
+            })
+            .on("end", (event) => {
+                velocityX = (event.x - startX) * 2;  // Increase speed
+                velocityY = (event.y - startY) * 2;  // Increase speed
+                flingCat(velocityX, velocityY);
+                cat.style("cursor", "grab");
+                playCuteSound();
+            });
+    }
+
+    // Fling the cat image using a simple animation
+    function flingCat(vx, vy) {
+        const duration = 2000;
+        const t0 = Date.now();
+        const x0 = parseFloat(cat.attr("x"));
+        const y0 = parseFloat(cat.attr("y"));
+
+        d3.timer(() => {
+            const t = (Date.now() - t0) / duration;
+            if (t > 1) {
+                resetCat();
+                return true; // Stop the timer when done
+            }
+
+            const easeT = d3.easeCubicOut(t);
+            const newX = x0 + vx * easeT;
+            const newY = y0 + vy * easeT;
+            const newSize = 100 * (1 - t);  // Reduce size as it moves away
+
+            cat.attr("x", newX)
+               .attr("y", newY)
+               .attr("width", newSize)
+               .attr("height", newSize);
+        });
+    }
+
+    // Reset the cat to the starting position
+    function resetCat() {
+        setTimeout(() => {
+            cat.remove();
+            cat = svg.append("image")
+                .attr("xlink:href", catImageURL)
+                .attr("width", 100)
+                .attr("height", 100)
+                .attr("x", width / 2 - 50)
+                .attr("y", height - 100)
+                .attr("class", "cat")
+                .call(dragBehavior());
+        }, 500);  // Add a delay before resetting
+    }
+
+    // Play a cute sound when the cat is flung
+    function playCuteSound() {
+        const audio = new Audio("cat.mp3");  // Replace with the path to your sound file
+        audio.play().then(() => {
+            console.log("Sound played successfully.");
+        }).catch(error => {
+            // Retry on mobile browsers by interacting with user events
+            document.body.addEventListener('touchstart', () => {
+                audio.play();
+            }, { once: true });
+            console.log("Sound playback failed or was prevented by the browser.");
+        });
+    }
+</script>
+</body>
+</html>
