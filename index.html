@@ -17,6 +17,7 @@
 </head>
 <body>
 <script>
+    // Tim Minter 2024
     // Set up the SVG canvas
     const width = window.innerWidth;
     const height = window.innerHeight;
@@ -26,43 +27,56 @@
         .attr("height", height);
 
     // Load the cat image
-    const catImageURL = "cat.PNG";  // Replace with the path to your PNG file
+    const catImageURL1 = "cat-image1.png";  // Replace with the path to your PNG file
+    const catImageURL2 = "cat-image2.png";  // Replace with the path to your PNG file
 
-    // Create the initial cat image element
-    let cat = svg.append("image")
-        .attr("xlink:href", catImageURL)
+    // Create an audio element for reuse
+    const audio = new Audio("cat.mp3");  // Replace with the path to your sound file
+
+    // Create the initial cat images side by side
+    let cat1 = svg.append("image")
+        .attr("xlink:href", catImageURL1)
         .attr("width", 100)
         .attr("height", 100)
-        .attr("x", width / 2 - 50)
+        .attr("x", width / 2 - 150)
         .attr("y", height - 100)
         .attr("class", "cat")
-        .call(dragBehavior())
-        .on("touchstart", playCuteSound);  // Play sound on touch
+        .call(dragBehavior(cat1StartX = width / 2 - 150, cat1StartY = height - 100));
+
+    let cat2 = svg.append("image")
+        .attr("xlink:href", catImageURL2)
+        .attr("width", 100)
+        .attr("height", 100)
+        .attr("x", width / 2 + 50)
+        .attr("y", height - 100)
+        .attr("class", "cat")
+        .call(dragBehavior(cat2StartX = width / 2 + 50, cat2StartY = height - 100));
 
     // Define drag behavior
-    function dragBehavior() {
-        let startX, startY, velocityX, velocityY;
+    function dragBehavior(startX, startY) {
+        let initialX, initialY, velocityX, velocityY;
 
         return d3.drag()
-            .on("start", (event) => {
-                startX = event.x;
-                startY = event.y;
-                cat.style("cursor", "grabbing");
+            .on("start", function (event) {
+                initialX = event.x;
+                initialY = event.y;
+                d3.select(this).style("cursor", "grabbing");
+                playCuteSound();  // Play sound on start of drag
             })
-            .on("drag", (event) => {
-                cat.attr("x", event.x - 50).attr("y", event.y - 50);
+            .on("drag", function (event) {
+                d3.select(this).attr("x", event.x - 50).attr("y", event.y - 50);
             })
-            .on("end", (event) => {
-                velocityX = (event.x - startX) * 2;  // Increase speed
-                velocityY = (event.y - startY) * 2;  // Increase speed
-                flingCat(velocityX, velocityY);
-                cat.style("cursor", "grab");
+            .on("end", function (event) {
+                velocityX = (event.x - initialX) * 2;  // Increase speed
+                velocityY = (event.y - initialY) * 2;  // Increase speed
+                flingCat(d3.select(this), velocityX, velocityY, startX, startY);
+                d3.select(this).style("cursor", "grab");
             });
     }
 
     // Fling the cat image using a simple animation
-    function flingCat(vx, vy) {
-        const duration = 2000;
+    function flingCat(cat, vx, vy, startX, startY) {
+        const duration = 1500;
         const t0 = Date.now();
         const x0 = parseFloat(cat.attr("x"));
         const y0 = parseFloat(cat.attr("y"));
@@ -70,7 +84,7 @@
         d3.timer(() => {
             const t = (Date.now() - t0) / duration;
             if (t > 1) {
-                resetCat();
+                resetCat(cat, startX, startY);
                 return true; // Stop the timer when done
             }
 
@@ -87,24 +101,18 @@
     }
 
     // Reset the cat to the starting position
-    function resetCat() {
+    function resetCat(cat, startX, startY) {
         setTimeout(() => {
-            cat.remove();
-            cat = svg.append("image")
-                .attr("xlink:href", catImageURL)
-                .attr("width", 100)
-                .attr("height", 100)
-                .attr("x", width / 2 - 50)
-                .attr("y", height - 100)
-                .attr("class", "cat")
-                .call(dragBehavior())
-                .on("touchstart", playCuteSound);  // Play sound on touch
+            cat.attr("x", startX)
+               .attr("y", startY)
+               .attr("width", 100)
+               .attr("height", 100);
         }, 500);  // Add a delay before resetting
     }
 
     // Play a cute sound when the cat is touched
     function playCuteSound() {
-        const audio = new Audio("cat.mp3");  // Replace with the path to your sound file
+        audio.currentTime = 0;  // Reset audio to the start
         audio.play().then(() => {
             console.log("Sound played successfully.");
         }).catch(error => {
