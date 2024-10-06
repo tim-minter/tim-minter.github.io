@@ -17,40 +17,59 @@
 </head>
 <body>
 <script>
-    // Tim Minter 2024
     // Set up the SVG canvas
-    const width = window.innerWidth;
-    const height = window.innerHeight;
+    let width = window.innerWidth;
+    let height = window.innerHeight;
 
     const svg = d3.select("body").append("svg")
         .attr("width", width)
         .attr("height", height);
 
     // Load the cat image
-    const catImageURL1 = "cat-image1.png";  // Replace with the path to your PNG file
-    const catImageURL2 = "cat-image2.png";  // Replace with the path to your PNG file
+    const catImageURL1 = "cat-image1.png";  
+    const catImageURL2 = "cat-image2.png";  
 
     // Create an audio element for reuse
-    const audio = new Audio("cat.mp3");  // Replace with the path to your sound file
+    const audio = new Audio("cat.mp3");  
+
+    // Add a touchstart or mousedown event listener to authorize sound playback
+    document.body.addEventListener('touchstart', () => {
+        audio.play().catch(error => {
+            console.log("Initial sound authorization failed or was prevented by the browser.");
+        });
+    }, { once: true });
+
+    document.body.addEventListener('mousedown', () => {
+        audio.play().catch(error => {
+            console.log("Initial sound authorization failed or was prevented by the browser.");
+        });
+    }, { once: true });
+
+    // Function to calculate cat size as 20% of the width
+    function calculateCatSize() {
+        return width * 0.2;
+    }
 
     // Create the initial cat images side by side
+    let catSize = calculateCatSize();
+
     let cat1 = svg.append("image")
         .attr("xlink:href", catImageURL1)
-        .attr("width", 100)
-        .attr("height", 100)
-        .attr("x", width / 2 - 150)
-        .attr("y", height - 100)
+        .attr("width", catSize)
+        .attr("height", catSize)
+        .attr("x", width / 2 - catSize - 20)
+        .attr("y", height - catSize)
         .attr("class", "cat")
-        .call(dragBehavior(cat1StartX = width / 2 - 150, cat1StartY = height - 100));
+        .call(dragBehavior(cat1StartX = width / 2 - catSize - 20, cat1StartY = height - catSize));
 
     let cat2 = svg.append("image")
         .attr("xlink:href", catImageURL2)
-        .attr("width", 100)
-        .attr("height", 100)
-        .attr("x", width / 2 + 50)
-        .attr("y", height - 100)
+        .attr("width", catSize)
+        .attr("height", catSize)
+        .attr("x", width / 2 + 20)
+        .attr("y", height - catSize)
         .attr("class", "cat")
-        .call(dragBehavior(cat2StartX = width / 2 + 50, cat2StartY = height - 100));
+        .call(dragBehavior(cat2StartX = width / 2 + 20, cat2StartY = height - catSize));
 
     // Define drag behavior
     function dragBehavior(startX, startY) {
@@ -64,7 +83,7 @@
                 playCuteSound();  // Play sound on start of drag
             })
             .on("drag", function (event) {
-                d3.select(this).attr("x", event.x - 50).attr("y", event.y - 50);
+                d3.select(this).attr("x", event.x - catSize / 2).attr("y", event.y - catSize / 2);
             })
             .on("end", function (event) {
                 velocityX = (event.x - initialX) * 2;  // Increase speed
@@ -91,7 +110,7 @@
             const easeT = d3.easeCubicOut(t);
             const newX = x0 + vx * easeT;
             const newY = y0 + vy * easeT;
-            const newSize = 100 * (1 - t);  // Reduce size as it moves away
+            const newSize = catSize * (1 - t);  // Reduce size as it moves away
 
             cat.attr("x", newX)
                .attr("y", newY)
@@ -105,8 +124,8 @@
         setTimeout(() => {
             cat.attr("x", startX)
                .attr("y", startY)
-               .attr("width", 100)
-               .attr("height", 100);
+               .attr("width", catSize)
+               .attr("height", catSize);
         }, 500);  // Add a delay before resetting
     }
 
@@ -119,6 +138,25 @@
             console.log("Sound playback failed or was prevented by the browser.");
         });
     }
+
+    // Handle window resize
+    window.addEventListener("resize", () => {
+        width = window.innerWidth;
+        height = window.innerHeight;
+        catSize = calculateCatSize();
+
+        svg.attr("width", width).attr("height", height);
+
+        cat1.attr("width", catSize)
+            .attr("height", catSize)
+            .attr("x", width / 2 - catSize - 20)
+            .attr("y", height - catSize);
+
+        cat2.attr("width", catSize)
+            .attr("height", catSize)
+            .attr("x", width / 2 + 20)
+            .attr("y", height - catSize);
+    });
 </script>
 </body>
 </html>
