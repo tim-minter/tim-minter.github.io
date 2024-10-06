@@ -26,7 +26,7 @@
         .attr("height", height);
 
     // Load the cat image
-    const catImageURL = "cat.PNG";  // Replace with the path to your PNG file
+    const catImageURL = "your-cat-image.png";  // Replace with the path to your PNG file
 
     // Create the initial cat image element
     let cat = svg.append("image")
@@ -56,7 +56,6 @@
                 velocityY = (event.y - startY) * 2;  // Increase speed
                 flingCat(velocityX, velocityY);
                 cat.style("cursor", "grab");
-                playCuteSound();
             });
     }
 
@@ -66,6 +65,8 @@
         const t0 = Date.now();
         const x0 = parseFloat(cat.attr("x"));
         const y0 = parseFloat(cat.attr("y"));
+
+        playCuteSound();
 
         d3.timer(() => {
             const t = (Date.now() - t0) / duration;
@@ -103,14 +104,10 @@
 
     // Play a cute sound when the cat is flung
     function playCuteSound() {
-        const audio = new Audio("cat.mp3");  // Replace with the path to your sound file
+        const audio = new Audio("cute-cat-sound.mp3");  // Replace with the path to your sound file
         audio.play().then(() => {
             console.log("Sound played successfully.");
         }).catch(error => {
-            // Retry on mobile browsers by interacting with user events
-            document.body.addEventListener('touchstart', () => {
-                audio.play();
-            }, { once: true });
             console.log("Sound playback failed or was prevented by the browser.");
         });
     }
