@@ -1,162 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Space Cats</title>
-    <script src="https://d3js.org/d3.v7.min.js"></script>
-    <style>
-        body {
-            margin: 0;
-            overflow: hidden;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tim Minter</title>
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        width: 100vw;
+        font-family: Arial, Helvetica, sans-serif;
+
+        /* Full-screen background */
+        background-image: url('light.JPEG');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    /* Container for top right text */
+    .top-right {
+        align-self: flex-end;
+        text-align: right;
+        padding: 20px;
+    }
+
+    .top-right h1 {
+        margin: 0;
+        font-size: 3rem;
+        font-weight: 900;
+    }
+
+    .green-text {
+        color: #90ee90; /* light green */
+    }
+
+    .orange-text {
+        color: #ff7f00; /* neon orange */
+    }
+
+    /* Bottom-left paragraph */
+    .bottom-left {
+        padding: 20px;
+        max-width: 400px;
+    }
+
+    .bottom-left p {
+        color: #ff7f00; /* neon orange */
+        font-size: 1.1rem;
+        line-height: 1.5rem;
+        font-weight: 600;
+    }
+
+    /* Responsive behavior */
+    @media (max-width: 600px) {
+        .top-right h1 {
+            font-size: 2rem;
         }
-        .cat {
-            cursor: grab;
+
+        .bottom-left p {
+            font-size: 1rem;
         }
-    </style>
+    }
+</style>
 </head>
 <body>
-<script>
-    // Tim Minter 2024
-    // Set up the SVG canvas
-    let width = window.innerWidth;
-    let height = window.innerHeight;
 
-    const svg = d3.select("body").append("svg")
-        .attr("viewBox", `0 0 ${width} ${height}`)
-        .attr("preserveAspectRatio", "xMidYMid meet")
-        .style("width", "100%")
-        .style("height", "100%");
+    <div class="top-right">
+        <h1 class="green-text">Tim Minter</h1>
+        <h1 class="orange-text">Playing with light & data</h1>
+    </div>
 
-    // Load the cat image
-    const catImageURL1 = "cat-image1.png"; 
-    const catImageURL2 = "cat-image2.png";  
+    <div class="bottom-left">
+        <p>
+            2026 Exhibition. Gallery 19a. Brighton. 9-20 January
+        </p>
+    </div>
 
-    // Create an audio element for reuse
-    const audio = new Audio("cat.mp3"); 
-
-    // Add a unified event listener to authorize sound playback
-    function authorizeSoundPlayback() {
-        audio.play().catch(error => {
-            console.log("Initial sound authorization failed or was prevented by the browser.");
-        });
-    }
-
-    document.body.addEventListener('touchstart', authorizeSoundPlayback, { once: true });
-    document.body.addEventListener('mousedown', authorizeSoundPlayback, { once: true });
-    document.body.addEventListener('click', authorizeSoundPlayback, { once: true });
-
-    // Set initial cat size
-    const initialCatSize = 120;
-
-    // Function to create a cat image
-    function createCat(imageURL, startX, startY) {
-        return svg.append("image")
-            .attr("xlink:href", imageURL)
-            .attr("width", initialCatSize)
-            .attr("height", initialCatSize)
-            .attr("x", startX)
-            .attr("y", startY)
-            .attr("class", "cat")
-            .call(dragBehavior(startX, startY));
-    }
-
-    // Create the initial cat images side by side
-    let cat1 = createCat(catImageURL1, width / 2 - initialCatSize - 20, height - initialCatSize);
-    let cat2 = createCat(catImageURL2, width / 2 + 20, height - initialCatSize);
-
-    // Define drag behavior
-    function dragBehavior(startX, startY) {
-        let initialX, initialY, velocityX, velocityY;
-
-        return d3.drag()
-            .on("start", function (event) {
-                initialX = event.x;
-                initialY = event.y;
-                d3.select(this).style("cursor", "grabbing");
-                playCuteSound();  // Play sound on start of drag
-            })
-            .on("drag", function (event) {
-                d3.select(this).attr("x", event.x - initialCatSize / 2).attr("y", event.y - initialCatSize / 2);
-            })
-            .on("end", function (event) {
-                velocityX = (event.x - initialX) * 2;  // Increase speed
-                velocityY = (event.y - initialY) * 2;  // Increase speed
-                flingCat(d3.select(this), velocityX, velocityY, startX, startY);
-                d3.select(this).style("cursor", "grab");
-            });
-    }
-
-    // Fling the cat image using a d3.transition for smoother animation
-    function flingCat(cat, vx, vy, startX, startY) {
-        const duration = 1500;
-        const x0 = parseFloat(cat.attr("x"));
-        const y0 = parseFloat(cat.attr("y"));
-
-        cat.transition()
-            .duration(duration)
-            .ease(d3.easeCubicOut)
-            .attrTween("x", function() {
-                return function(t) {
-                    return x0 + vx * t;
-                };
-            })
-            .attrTween("y", function() {
-                return function(t) {
-                    return y0 + vy * t;
-                };
-            })
-            .attrTween("width", function() {
-                return function(t) {
-                    return initialCatSize * (1 - t);
-                };
-            })
-            .attrTween("height", function() {
-                return function(t) {
-                    return initialCatSize * (1 - t);
-                };
-            })
-            .on("end", function() {
-                resetCat(cat, startX, startY);
-            });
-    }
-
-    // Reset the cat to the starting position
-    function resetCat(cat, startX, startY) {
-        cat.transition()
-           .duration(500)
-           .attr("x", startX)
-           .attr("y", startY)
-           .attr("width", initialCatSize)
-           .attr("height", initialCatSize);
-    }
-
-    // Play a cute sound when the cat is touched
-    function playCuteSound() {
-        audio.currentTime = 0;  // Reset audio to the start
-        audio.play().then(() => {
-            console.log("Sound played successfully.");
-        }).catch(error => {
-            console.log("Sound playback failed or was prevented by the browser.");
-        });
-    }
-
-    // Handle window resize
-    window.addEventListener("resize", () => {
-        width = window.innerWidth;
-        height = window.innerHeight;
-
-        svg.attr("viewBox", `0 0 ${width} ${height}`);
-
-        // Update the starting position of the cats
-        cat1.call(dragBehavior(width / 2 - initialCatSize - 20, height - initialCatSize))
-            .attr("x", width / 2 - initialCatSize - 20)
-            .attr("y", height - initialCatSize);
-
-        cat2.call(dragBehavior(width / 2 + 20, height - initialCatSize))
-            .attr("x", width / 2 + 20)
-            .attr("y", height - initialCatSize);
-    });
-</script>
 </body>
 </html>
