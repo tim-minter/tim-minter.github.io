@@ -27,12 +27,13 @@
     .top-right {
         align-self: flex-end;
         text-align: right;
-        padding: 20px;
+        padding: 15px;
     }
 
     .top-right h1 {
         margin: 0;
-        font-size: 8rem;
+        font-size: 8rem;   /* was 2rem */
+        line-height: 8rem;
         font-weight: 900;
     }
 
@@ -45,37 +46,17 @@
     }
 
     .bottom-left {
-        padding: 20px;
-        max-width: 650px;
+        padding: 15px;
+        max-width: 90%;
     }
 
     .bottom-left p {
         color: #ff7f00;
-        font-size: 4rem;
+        font-size: 4rem;   /* was 1rem */
         line-height: 4.1rem;
         font-weight: 600;
     }
 
-    /* EXTRA LARGE TEXT ON MOBILE */
-    @media (max-width: 600px) {
-        .top-right h1 {
-            font-size: 8rem;   /* was 2rem */
-            line-height: 8rem;
-        }
-
-        .bottom-left p {
-            font-size: 4rem;   /* was 1rem */
-            line-height: 4.1rem;
-        }
-
-        .top-right {
-            padding: 15px;
-        }
-
-        .bottom-left {
-            padding: 15px;
-            max-width: 90%;
-        }
     }
 </style>
 </head>
