@@ -58,6 +58,8 @@
         align-self: flex-end;
         text-align: right;
         padding: 20px;
+        max-width: calc(100% - 200px);
+        margin-left: auto;
     }
 
     .top-right h1 {
@@ -101,11 +103,17 @@
 
         .top-right {
             padding: 15px;
+            max-width: calc(100% - 120px);
         }
 
         .bottom-left {
             padding: 15px;
             max-width: 90%;
+        }
+
+        .top-nav {
+            top: 15px;
+            left: 15px;
         }
     }
 
@@ -197,6 +205,10 @@
 
         .top-nav a {
             font-size: 1.2rem;
+        }
+
+        .top-right {
+            max-width: calc(100% - 150px);
         }
     }
 
