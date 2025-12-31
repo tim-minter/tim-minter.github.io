@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,12 +7,22 @@
 <title>Tim Minter</title>
 
 <style>
+    html {
+        scroll-behavior: smooth;
+    }
+
     body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .hero-section {
         margin: 0;
         padding: 0;
         height: 100vh;
         width: 100vw;
-        font-family: Arial, Helvetica, sans-serif;
+        position: relative;
 
         /* Full-screen background */
         background-image: url('light.JPEG');
@@ -22,6 +33,25 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+    }
+
+    .top-nav {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        z-index: 10;
+    }
+
+    .top-nav a {
+        color: #90ee90;
+        text-decoration: none;
+        font-size: 1.5rem;
+        font-weight: 600;
+        transition: color 0.3s ease;
+    }
+
+    .top-nav a:hover {
+        color: #ff7f00;
     }
 
     .top-right {
@@ -78,20 +108,315 @@
             max-width: 90%;
         }
     }
+
+    .content-section {
+        min-height: 70vh;
+        padding: 40px 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 40px;
+    }
+
+    .content-section.reverse {
+        flex-direction: row-reverse;
+    }
+
+    .section-content {
+        flex: 1;
+        max-width: 600px;
+    }
+
+    .section-content h2 {
+        font-size: 3rem;
+        margin: 0 0 30px 0;
+        font-weight: 900;
+    }
+
+    .section-content p {
+        font-size: 1.2rem;
+        line-height: 1.8rem;
+        margin: 0;
+    }
+
+    .section-image {
+        flex: 1;
+        max-width: 500px;
+        height: 400px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+
+    .section-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+
+    .section-red {
+        background-color: #ff0000;
+        color: #fff;
+    }
+
+    .section-yellow {
+        background-color: #ffd700;
+        color: #000;
+    }
+
+    .section-white {
+        background-color: #ffffff;
+        color: #000;
+    }
+
+    .section-black {
+        background-color: #000000;
+        color: #fff;
+    }
+
+    @media (max-width: 768px) {
+        .content-section {
+            flex-direction: column !important;
+            padding: 60px 20px;
+            gap: 20px;
+        }
+
+        .section-content h2 {
+            font-size: 2rem;
+        }
+
+        .section-content p {
+            font-size: 1rem;
+        }
+
+        .section-image {
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .top-nav a {
+            font-size: 1.2rem;
+        }
+    }
+
+    .contact-section {
+        min-height: 50vh;
+        padding: 80px 40px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        background-color: #000000;
+        color: #fff;
+    }
+
+    .contact-section h2 {
+        font-size: 3rem;
+        margin: 0 0 30px 0;
+        font-weight: 900;
+    }
+
+    .contact-section a {
+        color: #90ee90;
+        text-decoration: none;
+        font-size: 1.5rem;
+        font-weight: 600;
+        transition: color 0.3s ease;
+    }
+
+    .contact-section a:hover {
+        color: #ff7f00;
+    }
+
+    @media (max-width: 768px) {
+        .contact-section {
+            padding: 60px 20px;
+        }
+
+        .contact-section h2 {
+            font-size: 2rem;
+        }
+
+        .contact-section a {
+            font-size: 1.2rem;
+        }
+    }
 </style>
 </head>
 <body>
 
-    <div class="top-right">
-        <h1 class="green-text">Tim Minter</h1>
-        <h1 class="orange-text">Playing with light & data</h1>
+    <div class="hero-section">
+        <div class="top-nav">
+            <a href="#contact">Contact</a>
+        </div>
+        <div class="top-right">
+            <h1 class="green-text">Tim Minter</h1>
+            <h1 class="orange-text">Playing with light & data</h1>
+        </div>
+
+        <div class="bottom-left">
+            <p>
+                2026 Exhibition. Gallery 19a. Brighton. BN1 7HB. 9-20 January
+            </p>
+        </div>
     </div>
 
-    <div class="bottom-left">
-        <p>
-            2026 Exhibition. Gallery 19a. Brighton. 9-20 January
-        </p>
-    </div>
+    <!-- Section 1: Red -->
+    <section class="content-section section-red">
+        <div class="section-content">
+           
+            <p>I create systems that run without my control, and that lack of control is what makes them compelling. My practice grew out of playing with making data understandable and a curiosity in the unpredictable nature of algorithms when chaos is injected. Many of my pieces are generative, built on simple code rather than AI, yet they echo the spirit of early artificial intelligence experiments.
+                I’m fascinated by how people respond to randomness and connection, how we instinctively look for meaning and pattern even when none exists. My interactive works invite you into that process: sometimes through direct engagement, like pressing a button, and sometimes through subtle triggers, like movement. These pieces are not just objects; they’re conversations between code, light, motion, and human perception.
+                
+                </p>
+        </div>
+        
+    </section>
+
+    <!-- Section 2: Yellow -->
+    <section class="content-section section-yellow reverse">
+        <div class="section-content">
+            
+            <p>What happens when you push the button on a perfectly behaved system? Brighton artist Tim Minter invites you to find out. 
+
+                This January, come and visit a playground of light, movement and gentle chaos. Expect spinning objects, glowing lights and a computer endlessly trying and failing to write the perfect sentence. Tim takes big concepts like AI, data and randomness and turns them into artworks you can play with
+                </p>
+        </div>
+        <div class="section-image">
+            <img src="images/Digital Square 1.png" alt="Digital Flier for 2026 Exhibition">
+        </div>
+    </section>
+
+    <!-- Section 3: White -->
+    <section class="content-section section-black reverse">
+        <div class="section-content">
+            <h2>Sentimentometers</h2>
+            <h3>September 2018 | Kinetic Acrylic & Diecast Aluminium</h3>
+            <p>An analogue view of the digital world. The complexity of social media analysed and distilled down into a single number represented on a dial. Originally conceived as a live barometer of Twitter sentiment in a geographic location, while I was working at IBM. Over time the piece has been significantly modified and added to. The version here is a statement about the human need to both find patterns and reinforce preconceptions or beliefs already held. This version was forced into existence in 2019 when I had to rethink the piece to work with no internet connection. Instead of real data, random data was used. The audience made their own minds up, seeing patterns that just were not there.
+            </p>
+        </div>
+        <div class="section-image">
+            <img src="images/sentimentometers.jpeg" alt="Random Dot Machine Number 1">
+        </div>
+    </section>
+    
+
+    <!-- Section 4: Black -->
+    <section class="content-section section-white">
+        <div class="section-content">
+            <h2>Random Dot Machine No 1</h2>
+            <h3>May 2019 | Light Mixed Media Acrylic & Wood</h3>
+            <p>
+                First in a series exploring randomness in computing. Light is projected onto an acrylic medium. A computer chooses a space, starts a cycle through 256 colours, rolls a virtual dice and lands on a chosen colour. Hard digital logic turned into something soothing.
+                </p>
+        </div>
+        <div class="section-image">
+            <img src="images/lensrandom.jpg" alt="Random Dot Machine Number 1">
+        </div>
+    </section>
+
+    <!-- Section 5: Red -->
+    <section class="content-section section-red">
+        <div class="section-content">
+            <h2>Random Dot Machine No 2</h2>
+            <h3>June 2019 | Light Mixed Media Acrylic & Wood</h3>
+            <p>
+                Dots, randomly formed. Just for fun.
+                </p>
+        </div>
+        <div class="section-image">
+            <img src="images/largeramdom.jpeg" alt="Random Dot Machine Number 1">
+        </div>
+    </section>
+
+    <!-- Section 6: Yellow -->
+    <section class="content-section section-yellow reverse">
+        <div class="section-content">
+            <h2>Random Dot Machine No 5</h2>
+            <h3>December 2020 | Light Mixed Media Acrylic, Wood & Steel</h3>
+            <p>
+                Large scale randomness. A sequence of random numbers generated by a simple computer will always be the same. Unless randomness is used to seed that randomness. Time is never the same number again but a simple computer has no concept of time, so here we rely on the voltage picked up from the surroundings, on a pin, on a circuit board to generate our pattern.
+                </p>
+        </div>
+        <div class="section-image">
+            <img src="images/IMG_0053.jpeg" alt="Random Dot Machine Number 1">
+        </div>
+    </section>
+
+    <!-- Section 7: White -->
+    <section class="content-section section-white">
+        <div class="section-content">
+            <h2>Random Dot Machine No 6</h2>
+            <h3>December 2024 | Light Mixed Media Acrylic</h3>
+            <p>
+                Final experiment stretching complexity in randomness a little more. A pattern is generated, seeded from randomness and then analysed in memory. The computer is tasked with finding two vertical dots that are already part of the pattern and turning them a random colour. Finally the pattern is split into columns and is whisked away randomly.
+                </p>
+        </div>
+        <div class="section-image">Placeholder Image</div>
+    </section>
+
+    <!-- Section 8: Black -->
+    <section class="content-section section-black reverse">
+        <div class="section-content">
+            <h2>16 Bit Group</h2>
+            <h3>November 2021-August 2024 | Kinetic Mixed Media</h3>
+            <p>An exploration of the effect of chaos on a system. In the world, the chaos that erupts has a daily impact. This exhibit minimises society into a 16 bit system and invites the viewer to add chaos. Some chaos is expected and the system is designed to handle it. Some chaos is too much, or the wrong kind, and the system fails. In this case the system resets and it lives on.
+                </p>
+        </div>
+        <div class="section-image">
+            <img src="images/IMG_0088.jpeg" alt="Image of some of the spinning elements of the 16 part group">
+        </div>
+    </section>
+
+    <!-- Section 3: White -->
+    <section class="content-section section-white">
+        <div class="section-content">
+            <h2>Experiment 5</h2>
+            <h3>January 2025 | Light Mixed Media Acrylic</h3>
+            <p>An experiment in character generation. If a computer is given the fundamental elements of character construction - strokes, dots, lines, curves, and intersections - it will generate forms that resemble letters, revealing patterns of emergent typographic structure derived from minimal visual primitives. Given only visual primitives, do computational search pressures (e.g., legibility, stroke economy, symmetry) yield glyphs that humans consistently recognise as letters above chance? Starting from dots and lines, I ask a machine to rediscover the alphabet. The forms that emerge test whether legibility is a human habit - or a natural consequence of drawing.</p>
+            </p>
+        </div>
+        <div class="section-image">
+            <img src="images/IMG_0099.jpeg" alt="Cropped image of round orange dots on grey background">
+        </div>
+    </section>
+    
+
+    <!-- Section 4: Black -->
+    <section class="content-section section-black reverse">
+        <div class="section-content">
+            <h2>Experiment 6 </h2>
+            <h3>September 2025 | Mixed Media</h3>
+            <p>An experiment in language. If a machine follows only basic rules for building words and sentences, without knowing their meaning, then repeated generation will create text that looks like language, showing that structure alone can make things feel readable. Can a system that uses only simple grammar rules, without real words or meaning, produce text that people see as “word-like” or “sentence-like”? And which patterns make it seem that way?
+
+                </p>
+        </div>
+        <div class="section-image">
+            <img src="images/sentence.jpeg" alt="Croped image of green simgle line display screens with incorrect words displayed">
+        </div>
+    </section>
+
+    <!-- Section 5: Red -->
+    <section class="content-section section-red">
+        <div class="section-content">
+            <h2>How do You Lean? </h2>
+            <h3>August 2018 - Reworked 2025 | Kinetic Acrylic & Wood</h3>
+            <p>
+                 If a physical interface mirrors a person`s lean to the left or right, it will reveal how feedback loops, like those in social media algorithms, amplify our own biases, showing that even small shifts in position can reinforce and exaggerate our perspective. Can a simple mirrored movement system illustrate the way algorithmic feedback bends information toward our preferences, and how does this affect our sense of control and confirmation?
+                </p>
+        </div>
+        <div class="section-image">
+            <img src="images/lean.jpeg" alt="cropped image of a large Sentimentometer modified to react to the viewer">
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <h2>Contact</h2>
+        <a href="https://www.instagram.com/timminterart" target="_blank" rel="noopener noreferrer">@timminterart</a>
+    </section>
 
 </body>
 </html>
